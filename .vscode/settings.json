@@ -1,0 +1,17 @@
+{
+  "python.analysis.typeCheckingMode": "basic",
+  "window.zoomLevel": 2,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  },
+  "python.linting.pylintEnabled": true,
+  "pylint.args": [
+    "--variable-naming-style=snake_case",
+    "--function-naming-style=snake_case",
+    "--disable=C0103,W0603,W0611,W0105,C0116,C0114,C0115"
+  ],
+  "python.linting.pydocstyleEnabled": false,
+  "python.formatting.provider": "black",
+  "python.linting.pydocstyleArgs": ["--disable=D210"]
+}

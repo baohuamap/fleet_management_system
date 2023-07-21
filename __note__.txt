@@ -1,0 +1,46 @@
+### DOCKER POSTGRES ###
+
+Pull image: docker pull postgres:alpine
+
+docker images
+
+run image:  docker run --name fastapi-postgres --net test_fastapi -e POSTGRES_PASSWORD=bao -d -p 1234:5432 postgres:alpine
+
+Execute cmd: docker exec -it fastapi-postgres bash
+
+psql -U postgres
+
+create database fleet_vehicle_db;
+
+\du , \l
+
+create user myuser with encrypted password 'bao';
+
+grant all privileges on database fleet_vehicle_db to myuser;
+
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO myuser;
+
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO myuser;
+
+\c fleet_vehicle_db
+
+psql -h localhost -p 5432 postgres
+
+--- conda activate env ---
+
+pip install "fastapi[all]" SQLAlchemy psycopg2-binary
+
+
+--- host fastapi servers ----
+
+
+
+--- build and run docker ----
+docker build -t api/demoapp:1.0 .
+docker run --name demoapp --net test_fastapi -d -p 5000:5000 api/demoapp:1.0
+
+--- create docker network ---
+docker network create test_fastapi
+
+
+
