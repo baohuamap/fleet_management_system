@@ -1,6 +1,6 @@
 {
   "python.analysis.typeCheckingMode": "basic",
-  "window.zoomLevel": 2,
+  "window.zoomLevel": 1,
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.organizeImports": true
@@ -12,6 +12,10 @@
     "--disable=C0103,W0603,W0611,W0105,C0116,C0114,C0115"
   ],
   "python.linting.pydocstyleEnabled": false,
-  "python.formatting.provider": "black",
-  "python.linting.pydocstyleArgs": ["--disable=D210"]
+  "python.formatting.provider": "none",
+  "python.linting.pydocstyleArgs": ["--disable=D210"],
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "black-formatter.args": ["--line-length=79"]
 }
