@@ -46,4 +46,12 @@ docker run --name demoapp-flask --net test_api -d -p 5000:5000 demo-flask
 docker network create test_api
 
 
+-- gunicorn --
+gunicorn -w 4 -k uvicorn.workers.UvicornWorker app.main:app --bind 0.0.0.0:8000
 
+cd /etc/systemd/system/
+
+systemctl start exercise-fast
+systemctl stop exercise-fast
+
+sudo systemctl enable exercise-fast.service 

@@ -1,0 +1,13 @@
+[Unit]
+Description=demo fastapi application
+After=network.target
+
+[Service]
+User=bhmap
+Group=bhmap
+WorkingDirectory=/home/bhmap/Workspace/Exercise-fast
+Environment="PATH=/home/bhmap/Workspace/Exercise-fast/.env/bin"
+ExecStart=/home/bhmap/Workspace/Exercise-fast/.env/bin/gunicorn -w 4 -k uvicorn.workers.UvicornWorker app.main:app --bind 0.0.0.0:8000
+
+[Install]
+WantedBy=multi-user.target
