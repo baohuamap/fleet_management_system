@@ -1,7 +1,7 @@
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
-from sqlalchemy.orm import declarative_base, sessionmaker
+from sqlalchemy.orm import sessionmaker
 
 from app import models
 from app.config import settings
@@ -10,8 +10,8 @@ from app.main import app
 
 username = settings.database_username
 password = settings.database_password
-host = settings.database_hostname
-port = settings.database_port
+host = "localhost"
+port = "1234"
 db_name = settings.database_name
 
 DATABASE_URL = (
@@ -25,7 +25,6 @@ TestingSessionLocal = sessionmaker(
 )
 
 
-# check lai sau moi session co drop db k
 @pytest.fixture
 def session():
     Base.metadata.drop_all(bind=engine)

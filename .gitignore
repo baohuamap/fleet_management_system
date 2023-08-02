@@ -1,5 +1,9 @@
-__pycache__
-.env
-.ENV
 .vscode
 __note__.txt
+__pycache__
+.pytest_cache
+.env
+.ENV
+postgres-data
+cache
+.dockerignore

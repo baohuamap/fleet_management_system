@@ -1,17 +1,19 @@
 import datetime as dt
+from uuid import UUID
 
-import pydantic
+from pydantic import BaseModel, ConfigDict, Field
 
 
-class BaseFleet(pydantic.BaseModel):
-    fleet_name: str
-    fleet_info: str
-    phone_number: str
+class BaseFleet(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+    fleet_name: str = Field(alias="name")
+    fleet_info: str = Field(alias="info")
+    phone_number: str = Field(alias="phone")
 
 
 class Fleet(BaseFleet):
-    id: int
-    date_created: dt.datetime
+    id: UUID = Field(alias="uuid")
+    date_created: dt.datetime = Field(alias="date")
 
     class Config:
         from_attributes = True
@@ -21,15 +23,16 @@ class CreateFleet(BaseFleet):
     pass
 
 
-class BaseVehicle(pydantic.BaseModel):
-    vehicle_brand: str
-    vehicle_plate_number: str
+class BaseVehicle(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+    vehicle_brand: str = Field(alias="brand")
+    vehicle_plate_number: str = Field(alias="plate")
 
 
 class Vehicle(BaseVehicle):
-    id: int
+    id: UUID = Field(alias="uuid")
     date_created: dt.datetime
-    owner_id: int
+    owner_id: UUID = Field(alias="owner_uuid")
 
     class Config:
         from_attributes = True
@@ -39,14 +42,15 @@ class CreateVehicle(BaseVehicle):
     pass
 
 
-class BaseDriver(pydantic.BaseModel):
-    driver_name: str
-    phone_number: str
+class BaseDriver(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+    driver_name: str = Field(alias="name")
+    phone_number: str = Field(alias="phone")
 
 
 class Driver(BaseDriver):
-    id: int
-    date_created: dt.datetime
+    id: UUID = Field(alias="uuid")
+    date_created: dt.datetime = Field(alias="date")
 
     class Config:
         from_attributes = True
@@ -56,16 +60,17 @@ class CreateDriver(BaseDriver):
     pass
 
 
-class BaseRoute(pydantic.BaseModel):
-    route_name: str
-    route_info: str
+class BaseRoute(BaseModel):
+    model_config = ConfigDict(populate_by_name=True)
+    route_name: str = Field(alias="name")
+    route_info: str = Field(alias="info")
 
 
 class Route(BaseRoute):
-    id: int
-    date_created: dt.datetime
-    driver_id: int
-    vehicle_id: int
+    id: UUID = Field(alias="uuid")
+    date_created: dt.datetime = Field(alias="date")
+    driver_id: UUID = Field(alias="driver_uuid")
+    vehicle_id: UUID = Field(alias="vehicle_uuid")
 
     class Config:
         from_attributes = True

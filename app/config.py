@@ -9,8 +9,11 @@ class Settings(BaseSettings):
     database_username: str
     database_password: str
 
+    redis_server: str
+    redis_port: int
+
     class Config:
-        env_file = ".ENV"
+        env_file = "app.env"
 
 
 settings = Settings()

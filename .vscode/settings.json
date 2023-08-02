@@ -9,7 +9,7 @@
   "pylint.args": [
     "--variable-naming-style=snake_case",
     "--function-naming-style=snake_case",
-    "--disable=C0103,W0603,W0611,W0105,C0116,C0114,C0115,W0621"
+    "--disable=C0103,W0603,W0611,W0105,C0116,C0114,C0115,W0621,W0613"
   ],
   "python.linting.pydocstyleEnabled": false,
   "python.formatting.provider": "none",
