@@ -8,8 +8,13 @@ from sqlalchemy.orm import Session
 from app import database, schemas
 from app.ctrl import fleets
 from app.dependencies.redis import cache
+from app.security.oauth2 import verify_access_token
 
-router = APIRouter(prefix="/api/fleets", tags=["Fleets"])
+router = APIRouter(
+    prefix="/api/fleets",
+    tags=["Fleets"],
+    dependencies=[Depends(verify_access_token)],
+)
 
 
 # fleets methods
@@ -92,7 +97,7 @@ async def delete_fleet(
     except Exception as exc:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Error delete fleet",
+            detail="Error delete fleet",
         ) from exc
 
     return Response(status_code=status.HTTP_204_NO_CONTENT)

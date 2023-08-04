@@ -41,7 +41,7 @@ async def get(
     fleet_id: UUID,
     redis: "Redis",
     db: "Session",
-) -> models.Fleet:
+) -> models.Fleet | None:
     if (cached_profile := await redis.get(f"fleet_{fleet_id}")) is not None:
         fleet = json.loads(cached_profile)
     else:

@@ -8,8 +8,13 @@ from sqlalchemy.orm import Session
 from app import database, schemas
 from app.ctrl import drivers, routes, vehicles
 from app.dependencies.redis import cache
+from app.security.oauth2 import verify_access_token
 
-router = APIRouter(prefix="/api/routes", tags=["Routes"])
+router = APIRouter(
+    prefix="/api/routes",
+    tags=["Routes"],
+    dependencies=[Depends(verify_access_token)],
+)
 
 
 # routes methods
@@ -93,7 +98,7 @@ async def get_route(
     except Exception as exc:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Error get route",
+            detail="Error get route",
         ) from exc
 
     if route is None:

@@ -33,3 +33,14 @@ def get_db():
 
 def add_tables():
     return Base.metadata.create_all(bind=engine)
+
+
+fake_users_db = {
+    "bao": {
+        "username": "bao",
+        "full_name": "bao hua",
+        "email": "bao@example.com",
+        "hashed_password": "$2b$12$VjHOYBKb77976bZoTOIABekHde3FJAHZyJwte2z6.zfqkvOBu1.4u",
+        "disabled": False,
+    }
+}

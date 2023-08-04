@@ -1,19 +1,26 @@
 ## setting for db
-from pydantic_settings import BaseSettings
+from pydantic import Field
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    database_hostname: str
-    database_port: str
-    database_name: str
-    database_username: str
-    database_password: str
+    database_hostname: str = Field(default=...)
+    database_port: str = Field(default=...)
+    database_name: str = Field(default=...)
+    database_username: str = Field(default=...)
+    database_password: str = Field(default=...)
 
-    redis_server: str
-    redis_port: int
+    secret_key: str = Field(default=...)
+    algorithm: str = Field(default=...)
+    access_token_expire_minutes: int = Field(default=...)
 
-    class Config:
-        env_file = "app.env"
+    redis_server: str = Field(default=...)
+    redis_port: int = Field(default=...)
+
+    model_config = SettingsConfigDict(env_file="app.env")
+
+    # class Config:
+    #     env_file = "app.env"
 
 
 settings = Settings()

@@ -43,7 +43,7 @@ async def get(
     driver_id: UUID,
     redis: "Redis",
     db: "Session",
-) -> models.Driver:
+) -> models.Driver | None:
     if (cached_profile := await redis.get(f"driver_{driver_id}")) is not None:
         driver = json.loads(cached_profile)
     else:

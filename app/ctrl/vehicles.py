@@ -70,7 +70,7 @@ async def get(
     vehicle_id: UUID,
     redis: "Redis",
     db: "Session",
-) -> models.Vehicle:
+) -> models.Vehicle | None:
     if (
         cached_profile := await redis.get(f"vehicle_{vehicle_id}")
     ) is not None:
@@ -93,7 +93,7 @@ async def delete(
     vehicle_id: UUID,
     redis: "Redis",
     db: "Session",
-):
+) -> None:
     vehicle = (
         db.query(models.Vehicle)
         .filter(models.Vehicle.id == vehicle_id)

@@ -49,7 +49,7 @@ async def get(
     route_id: UUID,
     redis: "Redis",
     db: "Session",
-) -> models.Route:
+) -> models.Route | None:
     if (cached_profile := await redis.get(f"route_{route_id}")) is not None:
         route = json.loads(cached_profile)
     else:
@@ -68,7 +68,7 @@ async def delete(
     route_id: UUID,
     redis: "Redis",
     db: "Session",
-):
+) -> None:
     route = db.query(models.Route).filter(models.Route.id == route_id).first()
     db.delete(route)
     db.commit()

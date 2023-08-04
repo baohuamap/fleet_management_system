@@ -8,8 +8,13 @@ from sqlalchemy.orm import Session
 from app import database, schemas
 from app.ctrl import fleets, vehicles
 from app.dependencies.redis import cache
+from app.security.oauth2 import verify_access_token
 
-router = APIRouter(prefix="/api/vehicles", tags=["Vehicles"])
+router = APIRouter(
+    prefix="/api/vehicles",
+    tags=["Vehicles"],
+    dependencies=[Depends(verify_access_token)],
+)
 
 
 # vehicles methods
@@ -103,7 +108,7 @@ async def get_vehicle(
     except Exception as exc:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Error get vehicle",
+            detail="Error get vehicle",
         ) from exc
 
     if vehicle is None:

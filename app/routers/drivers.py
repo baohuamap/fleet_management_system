@@ -8,8 +8,13 @@ from sqlalchemy.orm import Session
 from app import database, schemas
 from app.ctrl import drivers
 from app.dependencies.redis import cache
+from app.security.oauth2 import verify_access_token
 
-router = APIRouter(prefix="/api/drivers", tags=["Drivers"])
+router = APIRouter(
+    prefix="/api/drivers",
+    tags=["Drivers"],
+    dependencies=[Depends(verify_access_token)],
+)
 
 
 # drivers methods
@@ -55,7 +60,7 @@ async def get_driver(
     except Exception as exc:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Error get driver",
+            detail="Error get driver",
         ) from exc
 
     if driver is None:
@@ -77,7 +82,8 @@ async def delete_driver(
         driver = await drivers.get(driver_id=driver_id, redis=redis, db=db)
     except Exception as exc:
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, detail=f"Error get driver"
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Error get driver",
         ) from exc
 
     if driver is None:
